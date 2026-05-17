@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 
+# GITHUB: https://github.com/biscuitrescue/hanoi
+
 import time
 
 num_disks = int(input("Enter Number of Disks: "))
 count = 0
-towers = {
-    'A': list(range(num_disks, 0, -1)),
-    'B': [],
-    'C': []
-}
+towers = {"A": list(range(num_disks, 0, -1)), "B": [], "C": []}
 
 
 def draw_towers():
@@ -18,7 +16,7 @@ def draw_towers():
 
     for i in range(num_disks - 1, -1, -1):
         row_str = ""
-        for name in ['A', 'B', 'C']:
+        for name in ["A", "B", "C"]:
             tower = towers[name]
             if i < len(tower):
                 row_str += f" [{tower[i]}]  "
@@ -48,13 +46,13 @@ def check_move(peg1, peg2):
 
 
 def hanoi():
-    total_moves = (2 ** num_disks) - 1  # Runs 2^n - 1 times
+    total_moves = (2**num_disks) - 1  # Runs 2^n - 1 times
 
     # determines rotation direction for odd and even number of disks
     if num_disks % 2 == 0:
-        mv_pairs = [('A', 'B'), ('A', 'C'), ('B', 'C')]
+        mv_pairs = [("A", "B"), ("A", "C"), ("B", "C")]
     else:
-        mv_pairs = [('A', 'C'), ('A', 'B'), ('B', 'C')]
+        mv_pairs = [("A", "C"), ("A", "B"), ("B", "C")]
 
     draw_towers()
 
@@ -62,7 +60,9 @@ def hanoi():
 
     # I chose iteration over recursion to avoid the stack frame overhead and recursion depth limit
     for mv_num in range(1, total_moves + 1):
-        pair_idx = (mv_num - 1) % 3  # so that we always cycle pegs in the 3 towers. The number of pegs is inconsequential
+        pair_idx = (
+            mv_num - 1
+        ) % 3  # so that we always cycle pegs in the 3 towers. The number of pegs is inconsequential
         peg1, peg2 = mv_pairs[pair_idx]
 
         check_move(peg1, peg2)
